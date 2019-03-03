@@ -39,6 +39,18 @@ No aplica
 
 No aplica
 
+## Problemas
+
+### Problema con el daemon que falla en algunas ocasiones en Windows
+
+Se conseja ejecutar una consola en modo administrador ejecutar los siguiente comandos
+
+```bash
+Net stop com.docker.service
+Net start com.docker.service
+```
+Otra opcion es hacerlo desde la opcion de servicios de windows reiniciando el servicio que lleva por nombre : Docker for Windows Service
+
 
 ## Versionado
 
