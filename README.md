@@ -59,7 +59,7 @@ Net start com.docker.service
 
 Another option is to do it from the windows services option by restarting the service named : Docker for Windows Service
 
-## versioning
+## Versioning
 
 **Note :** [SemVer](http://semver.org/) is used for the versioning. 
 To see the available versions access the repository tags

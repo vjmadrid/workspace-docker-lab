@@ -1,70 +1,75 @@
 # demo-docker-nodejs-hello
-Proyecto que Muestra un mensaje "Hello World" ("Todo un clásico de cualquier desarrollo" :-) ) junto a información del evento que lo desencadeno a través de una petición REST (evento HTTP) pero todo ello montado dentro de una imagen docker
 
-## Stack Tecnológico
+Project that show a message "Hello World" ("All a classic of any development" :-) ) along with information of the event that triggered it through a request REST (HTTP event) but all mounted inside a docker image
 
-* Node.js (https://nodejs.org)
+## Technological Stack
+
+* Windows 10
 * Docker (https://www.docker.com/)
+* Node 8.10
 
-## Prerrequisitos
+## Prerequisites
 
-Instalar las siguientes herramientas y frameworks:
-* Node.js 8.10 o superior
-* Editor de código
+Install the following tools and frameworks:
+
+* Node.js 8.10 or higher
+* Code editor
 * Postman
 
-Recomendación de elementos extra a instalar :
+Recommendation of extra elements to be installed :
+
 * Visual Studio Code: https://code.visualstudio.com/
 * nvm: https://github.com/creationix/nvm
 * npm: https://www.npmjs.com/ (ver. 6.5.0)
 
-## Instalación
+## Installation
 
-Generales
+General
 
-* Instalar y Configurar Node.js (Documento **workspace-nodejs-lab/doc/README-instalacion-configuracion-node.md**)
-* Instalar y Configurar NVM (Documento **workspace-nodejs-lab/doc/README-instalacion-configuracion-nvm.md**)
+* Install and configure Node.js (Document **workspace-nodejs-lab/doc/README-install-configure-node.md**)
+* Install and configure NVM (Document **workspace-nodejs-lab/doc/README-install-configure-nvm.md**)
 
-Específicos
+Specifics
 
-* Preparar y Configurar un proyecto genérica (Documento **workspace-nodejs-lab/doc/README-preparar-configurar-proyecto.md**)
+* Prepare and configure a generic project (Document **workspace-nodejs-lab/doc/README-prepare-configure-project.md**)
 
-Este proyecto sigue los pasos básicos de construcción
+This project follows the basic construction steps
 
-1. Creación de un directorio para el proyecto : **demo-docker-nodejs-hello**
-2. Ubicarse dentro de este directorio
-3. Ejecutar el comando de creación de un arquetipo básico 
+1. Creating a directory for the project : **demo-docker-nodejs-hello**
+2. To be located inside this directory
+3. Execute the command to create a basic archetype 
 
 ```bash
 npm init -y
 ```
 
-4. Verificar la existencia del fichero package.json
+4. Verify the existence of the file package.json
 
 NOTA : No aplicar más pasos del documento
 
-## Preparación del proyecto 
+## Project preparation
 
-### Instalación de las dependencias del proyecto 
+### Installation of project dependencies
 
-* **[express](https://www.npmjs.com/package/express)** : Framework para aplicaciones web en node
+* **[express](https://www.npmjs.com/package/express)** : Framework for web applications in node
 
-Ejecutar el siguiente comando
+Execute the following command
 
 ```bash
-npm install express --save
+npm install express --save
 ```
 
-Instalará la última versión del framework express
+Install the latest version of the express framework
 
-Verificar que aparece en el fichero package.json
+Check that it appears in the package.json file
 
 
-### Creación de un fichero de aplicación
+### Creating an application file
 
-Se crea un fichero de aplicación en el directorio de proyecto con el nombre : **app.js**
+An application file is created in the project directory with the name : **app.js**
 
-Por ejemplo : 
+For example :
+
 ``` js
 const express = require('express')
 
@@ -84,28 +89,28 @@ app.get('/hello', async (req, res, next) => {
 app.listen(port_env, () => console.log(`[APP EXPRESS] hello app listening on port ${port_env}!`))
 ```
 
-Probamos la aplicación ejecutando el siguiente comando
+We test the application by executing the following command
 
 ```bash
 node app.js
 ```
 
-Se puede verificar que todo hay ido bien mediante el log que mostrará el siguiente mensaje : **[APP EXPRESS] hello app listening on port 3000!**
+You can verify that everything went well by means of the log that will show the following message : **[APP EXPRESS] hello app listening on port 3000!**
 
-Ejecutamos a traves del navegador o bien Postman : **http://localhost:3000/hello**
+Execute through the browser or Postman: **http://localhost:3000/hello**
 
-Se debería de mostrar el mensaje con la hora de la ejecución y en el log el mensaje : **info [APP EXPRESS] hello...**
+The message should be displayed with the time of execution and in the log the message: **info [APP EXPRESS] hello...**
 
-### Creación de un fichero "Dockerfile"
+### Creating a "Dockerfile" file
 
-Se va a diseñar un fichero que se encargue de :
+A file will be designed to take care of :
 
-* Copiar los ficheros del ejemplo al contenedor de docker
-* Instalar las dependencias del proyecto
-* Abrir un puerto para que sea accesible
-* Arrancar la aplicación
+* Copy the files from the example to the docker container
+* To install the dependencies of the project
+* Open a port to make it accessible
+* Start the application
 
-Ejemplo del fichero "Dockerfile" : 
+Example of the file "Dockerfile" :
 
 ```bash
 FROM node:latest
@@ -123,114 +128,131 @@ EXPOSE $PORT
 ENTRYPOINT ["node", "app.js"]
 ```
 
-Explicación : 
-* **FROM node:latest** : Selecciona la última imagen de "Docker Hub" basada en Ubuntu y que tiene Nodejs instalada
-* **WORKDIR /demo-docker-nodejs-hello** : Situa el directorio de proyecto
-* **COPY . /demo-docker-nodejs-hello** : Copia la ruta actual en otro
-* **ENV PORT=3000** : Establece la variable de entorno PORT con el valor 3000
-* **RUN npm install** : Ejecución de la instalación de las dependencias del proyecto
-* **EXPOSE $PORT** : Abre el puerto 3000 para que sea accesible desde fuera
-* **ENTRYPOINT ["node", "app.js"]** : Indicación de como arrancar la aplicación
+Explanation :
 
-### Construcción de la imagen en base al fichero "Dockerfile"
+* FROM node:latest** : Select the last image of "Docker Hub" based on Ubuntu and that has Nodejs installed.
+* **WORKDIR /demo-docker-nodejs-hello** : Situate the project directory
+* **COPY . /demo-docker-nodejs-hello** : Copy the current route into another one
+* ENV PORT=3000** : Sets the environment variable PORT to 3000
+* RUN npm install** : Execution of the installation of the project dependencies
+* EXPOSE $PORT** : Opens the port 3000 to be accessible from outside.
+* ENTRYPOINT ["node", "app.js"]** : Indication of how to start the application
 
-Nos ubicamos dentro del directorio de proyecto y ejecutamos el siguiente comando
+
+### Construction of the image based on the "Dockerfile" file
+
+We are located inside the project directory and execute the following command
 
 ```bash
 docker build -t vjmadrid/node:latest .
 ```
 
-En mi caso ehe puesto "vjmadrid" pero se podría poner otro elemento, esto ayudará a localizar la imagen despues
+In my case I have put "vjmadrid" but could put another element, this will help locate the image after
 
-A partir de este momento se encargará de descargar todo lo necesario así como hacer las operativas indicadas en el fichero
+From this moment on, you will be in charge of downloading everything necessary as well as doing the operations indicated in the file.
 
-Revisamos si se encuentra disponible la imagen con el siguiente comando
+Check if the image is available with the following command
 
 ```bash
 docker images
 ```
 
-Debería aparecer nuestra imagen con ciertos valores asignados : image_id, fecha de creación, tamaño, respositorio y tag
+Our image should appear with certain assigned values : image_id, creation date, size, respository and tag
 
 
-### Arrancar en contenedor en base a la imagen
+### Start the container based on image
 
-Para ello ejecutamos el siguiente comando sobre la imagen creada anteriormente 
+Execute the following command on the previously created image 
 
 ```bash
 docker run -p 8000:3000 vjmadrid/node
 ```
 
-En este caso se ha añadido el parámetro **"-p 8000:3000"** para mapear el puerto 8000 con el 3000
+In this case the parameter **"-p 8000:3000"** has been added to map port 8000 with 3000
 
-Nota : Se puede ejecuar en segundo plano añadiendo el parámetro **"-d"** (Modo Daemon) -> La salida de la ejecución no será visible
+Note : You can run in the background by adding the parameter **"-d "** (Daemon Mode) -> The output of the execution will not be visible.
 
-Para verificar si el contenedor se encuentra arrancado ejecutaremos en siguiente comando
-
-```bash
-docker ps
-```
-
-Se puede verificar que todo hay ido bien mediante el log que mostrará el siguiente mensaje : **[APP EXPRESS] hello app listening on port 3000!**
-
-Ejecutamos a traves del navegador o bien Postman : **http://localhost:8000/hello**
-
-Se debería de mostrar el mensaje con la hora de la ejecución y en el log el mensaje : **info [APP EXPRESS] hello...**
-
-
-
-### Parar en contenedor 
-
-Para verificar si el contenedor se encuentra arrancado ejecutaremos en siguiente comando
+Check if the container is started we will execute the following command
 
 ```bash
 docker ps
 ```
 
-Si lo vemos en la lista pasaremos a ejecutar el siguiente comando 
+Verify that everything went well by means of the log that will show the following message : **[APP EXPRESS] hello app listening on port 3000!**
+
+Execute through the browser or Postman: **http://localhost:8000/hello**
+
+The message should be displayed with the time of execution and in the log the message: **info [APP EXPRESS] hello...**
+
+
+Execute the following command on the previously created image 
+
+```bash
+docker run -p 8000:3000 --name demo-docker-nodejs-hello vjmadrid/node
+```
+With name is more easy to refer a the container in the management (stop, rm, etc.)
+
+The operations can chain with &&
+
+```bash
+docker stop demo-docker-nodejs-hello && docker rm demo-docker-nodejs-hello && docker build -t vjmadrid/node:latest . && docker run -p 8000:3000 --name demo-docker-nodejs-hello vjmadrid/node
+```
+
+
+### Stop the container
+
+Check if the container is started we will execute the following command
+
+```bash
+docker ps
+```
+
+If we see it in the list we will execute the following command 
 
 ```bash
 docker stop <container_id>
 ```
 
-Este comando envia una señal SIGTERM junto a la señal SIGKILL despues de un periodo de tiempo considerado -> Liberar recursos y guardar el estado
+> This command sends a SIGTERM signal next to the SIGKILL signal after a considered period of time -> Free resources and save the status
+>
+>You can use the kill command that sends a SIGKILL signal, which means that it may not do well to release resources and store the state,
+not recommended for use in production
 
-Se puede usar el comando kill que envia una señal SIGKILL lo que implica que quizas no se haga bien la liberación de recursos y lo de almacenar el estado,
-no se aconseja su uso en producción
 
+### Application of interactive mode
 
-### Aplicación del modo interactivo
-
-Facilita poder entrar dentro de un contenedor en ejecución
+Facilitates entry into a running container
 
 ```bash
 docker ps
 ```
 
-Si lo vemos en la lista pasaremos a ejecutar el siguiente comando 
+If we see it in the list we will execute the following command 
 
 ```bash
 docker exec -it <container_id> <shell>
 
-#Ejemplo
+#example
 docker exec -it 40f bash
 ```
 
-Se puede ejecutar cualquier cosa dentro del contenedor
+You can run anything inside the container
+
+For example :
 
 ```bash
 docker exec <container_id> node app.js
 ```
 
-### Eliminar en contenedor 
+### Delete the container
 
-Para verificar si se encuentra la imagen
+Check if the image is found
 
 ```bash
 docker images
 ```
 
-Si lo vemos en la lista pasaremos a ejecutar el siguiente comando 
+You can run anything inside the container
 
 ```bash
 docker rm <container_id>
@@ -239,18 +261,17 @@ docker rm <container_id>
 
 ## Testing
 
-Cada proyecto tiene su forma
+Depends on the project
 
-## Despliegue
+## Deploy
 
-No aplica
+N/A
 
+## Versioning
 
-## Versionado
+**Note :** [SemVer](http://semver.org/) is used for the versioning. 
+To see the available versions access the repository tags
 
-**Nota :** Se utiliza [SemVer](http://semver.org/) para el versionado. 
-Para ver las versiones disponibles acceder a los tags del repositorio
-
-## Autores
+## Authors
 
 * **Víctor Madrid**
