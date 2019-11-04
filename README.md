@@ -32,7 +32,7 @@ Define what elements are needed to install the software
 * Docker installed (Version 18.09.2 required)
 
 
-### Installation
+## Installation
 
 The installation of Docker depends on the platform
 
